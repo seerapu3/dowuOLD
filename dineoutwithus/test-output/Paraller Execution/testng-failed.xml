@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="2" guice-stage="DEVELOPMENT" name="Failed suite [Paraller Execution]" parallel="tests">
+  <test name="Partner test cases(failed)" parallel="tests">
+    <classes>
+      <class name="dowuTests.partner">
+        <methods>
+          <include name="loginaspartner"/>
+          <include name="startTest"/>
+        </methods>
+      </class> <!-- dowuTests.partner -->
+      <class name="dowuTests.host">
+        <methods>
+          <include name="setupSuite"/>
+          <include name="tearDown"/>
+          <include name="startTest"/>
+        </methods>
+      </class> <!-- dowuTests.host -->
+    </classes>
+  </test> <!-- Partner test cases(failed) -->
+</suite> <!-- Failed suite [Paraller Execution] -->

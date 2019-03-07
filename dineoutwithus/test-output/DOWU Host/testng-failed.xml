@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="2" guice-stage="DEVELOPMENT" name="Failed suite [DOWU Host]">
+  <test name="host test cases(failed)">
+    <classes>
+      <class name="dowuTests.host">
+        <methods>
+          <include name="hostlogin"/>
+          <include name="setupSuite"/>
+          <include name="tearDown"/>
+          <include name="startTest"/>
+        </methods>
+      </class> <!-- dowuTests.host -->
+    </classes>
+  </test> <!-- host test cases(failed) -->
+</suite> <!-- Failed suite [DOWU Host] -->
