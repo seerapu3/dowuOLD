@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>Testing</groupId>
-	<artifactId>Jiyyo</artifactId>
+	<artifactId>dowu</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Jiyyo</name>
+	<name>dowu</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -34,7 +34,7 @@
 				<configuration>
 					<suiteXmlFiles>
 						<!-- TestNG suite XML files -->
-						<suiteXmlFile>jiyyolabmodule.xml</suiteXmlFile>
+						<suiteXmlFile>douwpartner.xml</suiteXmlFile>
 					</suiteXmlFiles>
 				</configuration>
 			</plugin>
