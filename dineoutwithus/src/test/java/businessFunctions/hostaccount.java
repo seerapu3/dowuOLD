@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import com.aventstack.extentreports.ExtentTest;
 import com.mongodb.diagnostics.logging.Logger;
@@ -76,7 +77,21 @@ public class hostaccount extends Actiondrivers{
 		public void selectMenu() throws Throwable
 		{
 			// Enter the party size
-			driver.findElement(By.xpath("//input[@type='number'][@min='6']")).click();
-		}
-    
+		    driver.findElement(By.xpath("(//input[@name='miles'])[2]")).click();
+		    driver.findElement(By.xpath("(//input[@name='miles'])[2]")).clear();
+		    driver.findElement(By.xpath("(//input[@name='miles'])[2]")).sendKeys("7");
+		    driver.findElement(By.xpath("//div[2]/i")).click();
+		    driver.findElement(By.xpath("//tr[6]/td[4]/button/span")).click();
+		    driver.findElement(By.xpath("//select")).click();
+		    new Select(driver.findElement(By.xpath("//select"))).selectByVisibleText("4:00");
+		    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Did you have a specific price range in mind?'])[1]/preceding::select[2]")).click();
+		    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='$ 56 per person'])[1]/preceding::h4[1]")).click();
+		    driver.findElement(By.linkText("Ready to book")).click();
+		    driver.findElement(By.id("bookEvent")).click();
+		    driver.findElement(By.id("test_1")).click();
+		    driver.findElement(By.id("customGuest")).click();
+		    driver.findElement(By.linkText("Finalize Booking")).click();
+		    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='$ 56 per person'])[1]/preceding::h4[1]")).click();
+		  }
+		    
 }
