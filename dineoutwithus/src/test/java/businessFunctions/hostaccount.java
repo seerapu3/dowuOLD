@@ -73,7 +73,7 @@ public class hostaccount extends Actiondrivers{
         selectMenu();
 	}
 	
-	// select the Menus
+		// select the Menus
 		public void selectMenu() throws Throwable
 		{
 			// Enter the party size
@@ -93,5 +93,21 @@ public class hostaccount extends Actiondrivers{
 		    driver.findElement(By.linkText("Finalize Booking")).click();
 		    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='$ 56 per person'])[1]/preceding::h4[1]")).click();
 		  }
-		    
+		
+		// Select the Card / Add new cards
+		public void selectCard() throws Throwable
+		{}
+		
+		// Select the options 
+		public void selectBookingOption() throws Throwable
+		{}
+		
+		// Finalize booking
+		public void finalizeBooking() throws Throwable
+		{}
+		
+		// Host is paying for guests
+		// Host sending the reminders
+		// Saving the details
+		
 }
