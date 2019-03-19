@@ -1,20 +1,21 @@
 package dowuTests;
 
+import java.util.NoSuchElementException;
+
 import org.testng.annotations.Test;
 
-import com.aventstack.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 
 import businessFunctions.hostaccount;
 import businessFunctions.partneraccount;
 
 public class host extends hostaccount{
 	
-	static ExtentTest logger;
-
 	 @Test (enabled=false)
 	 public static void loginasdoctor() throws Throwable
 	 {
-		 logger = extent.createTest("Create Host Account");
+		 logger = extent.startTest("Login into Dineout test case");
 		 hostaccount create = new hostaccount();
 		 create.signup("Michele", "Sanchez", "michelesanchez@yopmail.com");
 	 }
@@ -22,12 +23,27 @@ public class host extends hostaccount{
 	 @Test (priority = '1')
 	 public static void hostlogin() throws Throwable
 	 {
-		 logger = extent.createTest("Login into host account");
-		 hostaccount account = new hostaccount();
-		 account.login("kennethpeters@yopmail.com", "S03g55a020%", logger);
-
-		 hostaccount select = new hostaccount();
-		 select.selectResturants();
+		 logger = extent.startTest("Login into Dineout test case");
+		 
+		 try {
+			 
+			 hostaccount account = new hostaccount();
+			 if(!account.login("kennethpeters@yopmail.com", "S03g55a020%",logger))
+			 {
+				 logger.log(LogStatus.FAIL, "Host unable to login into the Dineout application");
+			 } else
+			 {
+				logger.log(LogStatus.PASS, "Host successfully logged into the Dineout application");
+			 }
+			
+		} finally
+		{
+			if(flag)
+			{
+				throw new NoSuchElementException("Element Not Found");
+			}
+		}
+		 
 	 }
-	 
+
 }

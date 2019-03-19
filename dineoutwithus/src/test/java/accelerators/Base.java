@@ -1,7 +1,6 @@
-	package accelerators;
-	import java.io.File;
-	import java.sql.DriverManager;
-	import java.util.concurrent.TimeUnit;
+package accelerators;
+import java.io.File;
+import java.util.concurrent.TimeUnit;
 	import org.openqa.selenium.WebDriver;
 	import org.openqa.selenium.chrome.ChromeDriver;
 	import org.openqa.selenium.firefox.FirefoxDriver;
@@ -11,22 +10,16 @@
 	import org.testng.annotations.AfterSuite;
 	import org.testng.annotations.AfterTest;
 	import org.testng.annotations.BeforeSuite;
-	import org.testng.annotations.BeforeTest;
-	import com.aventstack.extentreports.ExtentReports;
-	import com.aventstack.extentreports.ExtentTest;
-	import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+	import com.relevantcodes.extentreports.ExtentReports;
+	import com.relevantcodes.extentreports.ExtentTest;
 	import utilities.Accessories;
 	import utilities.Property;
-	
-	
 
-	//import com.relevantcodes.extentreports.ExtentReports;
-	//import com.relevantcodes.extentreports.ExtentTest;
-
-	public class Base {
+public class Base {
 	 public static String timeStamp = Accessories.timeStamp().replace(" ", "_").replace(":", "_").replace(".", "_");
 	 public static Property configProps = new Property("config.properties");
 	 //public static ExtentReports extent;
+	 public static boolean flag =false;
 	 public static String URL = null;
 	 public static WebDriver driver;
 	 static String driverPath = System.getProperty("user.dir") + "\\Drivers\\";
@@ -38,16 +31,10 @@
 	 static int j = 0;
 	 
 	 // Extent Reports
-	 public static ExtentHtmlReporter reporter;
+	 //public static ExtentHtmlReporter reporter;
 	 public static ExtentReports extent;
+	 public static ExtentTest logger;
 	 
-	 /**
-	  *Initializing browser requirements, Test Results file path and Database requirements from the configuration file
-	  * @Date  19/02/2013
-	  * @Revision History
-	  * 
-	  */
-
 	 @BeforeSuite(alwaysRun = true)
 	 public static void setupSuite() throws Throwable {
     	// Initializing reporter paths and tests
@@ -100,18 +87,14 @@
 
 	 public static void intializeextentReport ()
 	 {
-		  reporter = new ExtentHtmlReporter(Base.filePath()+"Results_"+Base.timeStamp+".html");
-		  extent = new ExtentReports();
-		  extent.attachReporter(reporter);
+		 //reporter = new ExtentHtmlReporter(Base.filePath()+"Results_"+Base.timeStamp+".html");
+		
+		  extent = new ExtentReports(Base.filePath()+"Results_"+Base.timeStamp+".html",true);
+		  extent.config()
+	        .documentTitle("Dineoutwithus Automation Report")
+	        .reportName("Dineout Test Cases Report");
 	 }
 	 
-	 /**
-	  * Write results to Browser specific path
-	  * @Date  19/02/2013
-	  * @Revision History
-	  * 
-	  */
-	 //@Parameters({"browserType"})
 	 public static String filePath() {
 	  String strDirectoy = "";
 	  if (configProps.getProperty("browserType").equalsIgnoreCase("ie")) {
@@ -121,7 +104,7 @@
 	   //strDirectoy="Firefox\\Firefox";
 	   strDirectoy = "Firefox";
 	  } else {
-	   strDirectoy = "Chrome\\Chrome";
+	   //strDirectoy = "Chrome\\Chrome";
 	   strDirectoy = "Chrome";
 	  }
 
@@ -131,20 +114,17 @@
 	  return configProps.getProperty("extentresultspath") + strDirectoy + "\\";
 	 }
 
-	 /**
-	  *  De-Initializing and closing all the connections
-	  * @throws Throwable
-	  */
-
+	
 	 @AfterSuite(alwaysRun = true)
 	 public void tearDown(ITestContext ctx) throws Throwable {
 	  Accessories.calculateSuiteExecutionTime();
 	  driver.quit();
+	  extent.flush();
 	 }
 	 
 	 @AfterTest(alwaysRun = true)
-	 public void startTest() throws Throwable
+	 public void endTest() throws Throwable
 	 {
-		 extent.flush();
+		 extent.endTest(logger);
 	 }
 	}

@@ -9,8 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import com.aventstack.extentreports.ExtentTest;
-import com.mongodb.diagnostics.logging.Logger;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import com.sun.glass.events.KeyEvent;
 
 import accelerators.Actiondrivers;
@@ -42,17 +42,35 @@ public class hostaccount extends Actiondrivers{
 	}
 
 	// Login into Account
-	public void login(String email, String password, ExtentTest log) throws Throwable
+	public boolean login(String email, String password, ExtentTest logger) throws Throwable
 	{
-		driver.findElement(By.linkText("Sign-in")).click();
-		driver.findElement(By.xpath("//input[@placeholder='Enter your email']")).click();
-	    driver.findElement(By.xpath("//input[@placeholder='Enter your email']")).clear();
-	    driver.findElement(By.xpath("//input[@placeholder='Enter your email']")).sendKeys("kennethpeters@yopmail.com");
-	    driver.findElement(By.xpath("//input[@placeholder='Enter your password']")).click();
-	    driver.findElement(By.xpath("//input[@placeholder='Enter your password']")).clear();
-	    driver.findElement(By.xpath("//input[@placeholder='Enter your password']")).sendKeys("S03g55a020%");
-	    driver.findElement(By.xpath("//div[5]/button")).click();
-	    log.fail("Successfully login into application");
+		boolean bRetValue = false;
+		//By.linkText("Sign-in")
+			if(!click(login.signInMenu, "Sign In",logger))
+			{
+				bRetValue = false;
+			}else
+				bRetValue = true;
+			
+			if(!enter(login.username,email,logger))
+			{
+				bRetValue = false;
+			}else
+				bRetValue = true;
+			if(!enter(login.password,password,logger))
+			{
+				bRetValue = false;
+			}else
+				bRetValue = true;
+			
+			if(!click(login.loginbutton, "Login button",logger))
+			{
+				bRetValue = false;
+			}else
+				bRetValue = true;
+		
+			return bRetValue;
+			
 	}
 	
 	// select the Resturants

@@ -16,52 +16,41 @@ import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
 public class Actiondrivers extends Base{
-	
 
-	// test modified
-	public static WebDriverWait wait;
+public static WebDriverWait wait;
 
-	/**
-	 * This Method is to perform click operation on (link,button,check box,radio
-	 * button) Before click the element it will wait until the element present.
-	 * 
-
-	 */
-	public static boolean click(By locator, String locatorName)
-			throws Throwable {
-		boolean flag = false;
-		try {
-
-			driver.findElement(locator).click();
-			return true;
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			flag = true;
-			return false;
-		} finally {
-			if (flag) {
-			/*	Reporters.failureReport("Click ", "Unable to click on :"
-						+ locatorName);*/
-			} 
-			else
-			{/*Reporters.SuccessReport("Click ", "able to click on :"
-					+ locatorName);*/
-			}
-		}
+public static boolean click(By locator, String locatorName, ExtentTest logger) throws Throwable {
+	 boolean flag = false;
+	 try {
+	  driver.findElement(locator).click();
+	  return true;
+	 } catch (Exception e) {
+	  System.out.println(e.getMessage());
+	  flag = true;
+	  return false;
+	 } finally {
+	  if (flag) {
+		  logger.log(LogStatus.FAIL,"Unable to locate the "+locatorName);
+	  } else {
+		  logger.log(LogStatus.PASS,"Successfully click on the "+locatorName);
+	  }
+	 }
 	}
-	
+
 	/**
 	 * This method for type in to text box or text area
-	*/
-	public static boolean type(By locator, String testdata)
-			throws Throwable {
+	 */
+	public static boolean enter(By locator, String testdata,ExtentTest logger) throws Throwable {
 		boolean flag = false;
 		try {
 			System.out.println(locator);
 			System.out.println(testdata);
 			driver.findElement(locator).click();
-			//driver.findElement(locator).clear();
 			driver.findElement(locator).sendKeys(testdata);
 			return true;
 		} catch (NoSuchElementException e) {
@@ -69,17 +58,14 @@ public class Actiondrivers extends Base{
 			return false;
 		} finally {
 			if (flag) {
-				/*Reporters.failureReport("Type ",			
-						"Data typing action is not perform on: " + locatorName+" with data is "+testdata);*/
-				// throw new ElementNotFoundException("", "", "");
-
+				logger.log(LogStatus.FAIL, "Unable to Enter the "+testdata); 
 			} else {
-				//Reporters.SuccessReport("Type ","Data typing action is performed on:" + locatorName+" with data is "+testdata);
+				logger.log(LogStatus.PASS, "Successfully Enter the "+testdata);
 			}
 		}
 	}
-	
-	
+
+
 	public static boolean upload()
 			throws Throwable {
 		return false;
@@ -88,19 +74,19 @@ public class Actiondrivers extends Base{
 			throws Throwable {
 		return false;
 	}
-	
+
 	public static boolean alertMethods()
 			throws Throwable {
 		// using windows handlers
 		return false;
 	}
-	
+
 	public static boolean waits()
 			throws Throwable {
 		// using windows handlers
 		return false;
 	}
-	
+
 	public static boolean select()
 			throws Throwable {
 		// using windows handlers
